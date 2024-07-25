@@ -1,0 +1,62 @@
+<template>
+  <div class="navbar bg-base-100 min-h-max">
+    <div class="navbar-start min-w-max">
+      <div class="dropdown">
+        <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
+          <Bars3BottomLeftIcon class="h-6 w-6" />
+        </div>
+        <ul
+          tabindex="0"
+          class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+        >
+          <li>
+            <RouterLink to="/">Home</RouterLink>
+          </li>
+          <li>
+            <a>Parent</a>
+            <ul class="p-2">
+              <li><a>Submenu 1</a></li>
+              <li><a>Submenu 2</a></li>
+            </ul>
+          </li>
+          <li><a>Item 3</a></li>
+        </ul>
+      </div>
+      <RouterLink to="/" class="inline-flex font-bold gap-2 text-xl m-2">
+        <CDLLogo class="max-h-8" />
+        Community Day League
+      </RouterLink>
+    </div>
+    <div class="navbar-center hidden lg:flex">
+      <ul class="menu menu-horizontal px-1">
+        <li>
+          <RouterLink to="/">Home</RouterLink>
+        </li>
+        <li>
+          <details>
+            <summary>Parent</summary>
+            <ul class="p-2">
+              <li><a>Submenu 1</a></li>
+              <li><a>Submenu 2</a></li>
+            </ul>
+          </details>
+        </li>
+        <li><a>Item 3</a></li>
+      </ul>
+    </div>
+    <div class="navbar-end">
+      <a class="btn" :href="CDL_DISCORD_INVITE" target="_blank">Join Discord</a>
+    </div>
+  </div>
+</template>
+
+<style scoped>
+.navbar-center .router-link-active {
+  @apply text-primary;
+}
+</style>
+<script setup lang="ts">
+import { Bars3BottomLeftIcon } from '@heroicons/vue/24/solid'
+import CDLLogo from '@/components/icons/CDLLogo.vue'
+import { CDL_DISCORD_INVITE } from '@/constants'
+</script>
