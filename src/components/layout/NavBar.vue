@@ -13,13 +13,8 @@
             <RouterLink to="/">Home</RouterLink>
           </li>
           <li>
-            <a>Parent</a>
-            <ul class="p-2">
-              <li><a>Submenu 1</a></li>
-              <li><a>Submenu 2</a></li>
-            </ul>
+            <RouterLink to="/leaderboards">Leaderboards</RouterLink>
           </li>
-          <li><a>Item 3</a></li>
         </ul>
       </div>
       <RouterLink to="/" class="inline-flex font-bold gap-2 text-xl m-2">

@@ -36,7 +36,7 @@ function sortValues(
   key: keyof (typeof props)['values'][number],
   direction: SortDirection
 ) {
-  const modifier = direction === 'asc' ? -1 : 1
+  const modifier = direction === 'asc' ? 1 : -1
   return [...values].sort((a, b) => {
     if (a[key] < b[key]) return -1 * modifier
     if (a[key] > b[key]) return 1 * modifier

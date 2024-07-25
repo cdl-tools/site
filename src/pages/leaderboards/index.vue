@@ -1,5 +1,5 @@
 <template>
-  <div class="prose mx-auto">
+  <div class="prose mx-4 sm:mx-auto">
     <h1>Leaderboards</h1>
     <p>View leaderboards for past events, with players across all communities.</p>
 

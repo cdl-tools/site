@@ -11,7 +11,7 @@
     <slot name="icon">
       <span v-if="currentSort == name">
         <component
-          :is="sortDirection === 'asc' ? ArrowUpIcon : ArrowDownIcon"
+          :is="sortDirection === 'asc' ? ArrowDownIcon : ArrowUpIcon"
           class="size-4 ml-1"
         />
       </span>

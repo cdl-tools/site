@@ -6,46 +6,53 @@
     <h1>{{ eventName }}</h1>
 
     <progress v-if="leaderboardIsLoading" class="progress w-56"></progress>
-    <SortedTable v-else :values="leaderboard ?? []" sort="scoreRank" class="my-8">
-      <thead>
-        <tr>
-          <th scope="col">
-            <SortLink name="scoreRank">Score Rank</SortLink>
-          </th>
-          <th scope="col">
-            <SortLink name="xlWtRank">Weight Rank</SortLink>
-          </th>
-          <th scope="col">
-            <SortLink name="username">Username</SortLink>
-          </th>
-          <th scope="col">
-            <SortLink name="team">Team</SortLink>
-          </th>
-          <th scope="col">
-            <SortLink name="community">Community</SortLink>
-          </th>
-          <th scope="col">
-            <SortLink name="score">Score</SortLink>
-          </th>
-          <th scope="col">
-            <SortLink name="shiny">Shiny</SortLink>
-          </th>
-        </tr>
-      </thead>
-      <template #body="sort">
-        <tbody>
-          <tr v-for="value in sort.values" :key="value.id">
-            <td>{{ value.scoreRank }}</td>
-            <td>{{ value.xlWtRank }}</td>
-            <td>{{ value.username }}</td>
-            <td>{{ value.team }}</td>
-            <td>{{ value.community }}</td>
-            <td>{{ value.score }}</td>
-            <td>{{ value.shiny }}</td>
+    <div v-else class="overflow-y-scroll max-w-full w-full -mt-8">
+      <SortedTable
+        :values="leaderboard ?? []"
+        sort="scoreRank"
+        direction="asc"
+        class="min-w-max w-full"
+      >
+        <thead>
+          <tr>
+            <th scope="col">
+              <SortLink name="scoreRank">Score Rank</SortLink>
+            </th>
+            <th scope="col">
+              <SortLink name="xlWtRank">Weight Rank</SortLink>
+            </th>
+            <th scope="col">
+              <SortLink name="username">Username</SortLink>
+            </th>
+            <th scope="col">
+              <SortLink name="team">Team</SortLink>
+            </th>
+            <th scope="col">
+              <SortLink name="community">Community</SortLink>
+            </th>
+            <th scope="col">
+              <SortLink name="score">Score</SortLink>
+            </th>
+            <th scope="col">
+              <SortLink name="shiny">Shiny</SortLink>
+            </th>
           </tr>
-        </tbody>
-      </template>
-    </SortedTable>
+        </thead>
+        <template #body="sort">
+          <tbody>
+            <tr v-for="value in sort.values" :key="value.id">
+              <td>{{ value.scoreRank }}</td>
+              <td>{{ value.xlWtRank }}</td>
+              <td>{{ value.username }}</td>
+              <td>{{ value.team }}</td>
+              <td>{{ value.community }}</td>
+              <td>{{ value.score }}</td>
+              <td>{{ value.shiny }}</td>
+            </tr>
+          </tbody>
+        </template>
+      </SortedTable>
+    </div>
   </div>
 </template>
 
