@@ -2,7 +2,7 @@
 <!-- https://github.com/BernhardtD/vue-sorted-table -->
 
 <template>
-  <table class="table">
+  <table class="table-pin-rows">
     <slot></slot>
     <slot name="head"></slot>
     <slot name="body" :values="sortedValues"></slot>
@@ -36,7 +36,7 @@ function sortValues(
   key: keyof (typeof props)['values'][number],
   direction: SortDirection
 ) {
-  const modifier = direction === 'asc' ? 1 : -1
+  const modifier = direction === 'asc' ? -1 : 1
   return [...values].sort((a, b) => {
     if (a[key] < b[key]) return -1 * modifier
     if (a[key] > b[key]) return 1 * modifier
@@ -57,16 +57,4 @@ provide('sortDirection', sortDirection)
 provide('toggleSort', toggleSort)
 </script>
 
-<style>
-table {
-  @apply border-collapse table-auto;
-
-  th {
-    @apply border-b dark:border-slate-600 font-medium p-4 pl-8 pt-0 pb-3 text-left;
-  }
-
-  td {
-    @apply border-b border-slate-100 dark:border-slate-700 p-4 pl-8;
-  }
-}
-</style>
+<style></style>

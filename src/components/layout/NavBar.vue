@@ -33,15 +33,8 @@
           <RouterLink to="/">Home</RouterLink>
         </li>
         <li>
-          <details>
-            <summary>Parent</summary>
-            <ul class="p-2">
-              <li><a>Submenu 1</a></li>
-              <li><a>Submenu 2</a></li>
-            </ul>
-          </details>
+          <RouterLink to="/leaderboards">Leaderboards</RouterLink>
         </li>
-        <li><a>Item 3</a></li>
       </ul>
     </div>
     <div class="navbar-end">
