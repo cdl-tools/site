@@ -13,12 +13,16 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@formkit/vue": "^1.6.5",
     "@heroicons/vue": "^2.1.5",
+    "@katlyn/clipsheet": "npm:@jsr/katlyn__clipsheet@^0.2.2",
     "@unhead/vue": "^1.9.16",
     "vue": "^3.4.33",
     "vue-router": "^4.4.0"
   },
   "devDependencies": {
+    "@formkit/core": "^1.6.5",
+    "@formkit/themes": "^1.6.5",
     "@rushstack/eslint-patch": "^1.10.3",
     "@tailwindcss/typography": "^0.5.13",
     "@tsconfig/node20": "^20.1.4",

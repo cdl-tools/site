@@ -1,7 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ['./src/**/*.vue', './index.html'],
-  purge: ['./src/**/*.vue', './index.html'],
+  content: ['./src/**/*.vue', './index.html', './src/formkit.theme.ts'],
   theme: {
     extend: {}
   },

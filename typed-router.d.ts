@@ -19,6 +19,7 @@ declare module 'vue-router/auto-routes' {
    */
   export interface RouteNamedMap {
     '/': RouteRecordInfo<'/', '/', Record<never, never>, Record<never, never>>,
-    '/leaderboard': RouteRecordInfo<'/leaderboard', '/leaderboard', Record<never, never>, Record<never, never>>,
+    '/leaderboards/': RouteRecordInfo<'/leaderboards/', '/leaderboards', Record<never, never>, Record<never, never>>,
+    '/leaderboards/[event]': RouteRecordInfo<'/leaderboards/[event]', '/leaderboards/:event', { event: ParamValue<true> }, { event: ParamValue<false> }>,
   }
 }

@@ -28,7 +28,8 @@ import { defineBasicLoader } from 'unplugin-vue-router/data-loaders/basic'
 import { fetchEvents } from '@/util/sheets'
 
 export const useEventList = defineBasicLoader('/leaderboards' + '/', fetchEvents, {
-  lazy: true
+  lazy: true,
+  commit: 'immediate'
 })
 </script>
 

@@ -5,7 +5,12 @@
   <div v-else class="prose max-w-none mx-4">
     <h1>{{ eventName }}</h1>
 
-    <SortedTable v-if="!leaderboardIsLoading" :values="leaderboard" sort="scoreRank" class="my-8">
+    <SortedTable
+      v-if="!leaderboardIsLoading"
+      :values="leaderboard ?? []"
+      sort="scoreRank"
+      class="my-8"
+    >
       <thead>
         <tr>
           <th scope="col">
