@@ -2,7 +2,11 @@
 <!-- https://github.com/BernhardtD/vue-sorted-table -->
 
 <template>
-  <a href="#" @click.prevent="toggleSort?.(props.name)" class="flex items-center">
+  <a
+    href="#"
+    @click.prevent="toggleSort?.(props.name)"
+    class="flex items-center no-underline font-bold"
+  >
     <slot>{{ name }}</slot>
     <slot name="icon">
       <span v-if="currentSort == name">
