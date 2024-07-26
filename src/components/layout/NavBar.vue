@@ -3,7 +3,7 @@
     <div class="navbar-start min-w-max">
       <div class="dropdown">
         <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
-          <Bars3BottomLeftIcon class="h-6 w-6" />
+          <Bars3BottomLeftIcon class="h-8 w-8" />
         </div>
         <ul
           tabindex="0"
@@ -19,7 +19,8 @@
       </div>
       <RouterLink to="/" class="inline-flex font-bold gap-2 text-xl m-2">
         <CDLLogo class="max-h-8" />
-        Community Day League
+        <span class="sm:hidden">CDL</span>
+        <span class="hidden sm:inline">Community Day League</span>
       </RouterLink>
     </div>
     <div class="navbar-center hidden lg:flex">

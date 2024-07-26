@@ -27,7 +27,8 @@ import { CDL_DISCORD_INVITE } from '@/constants'
 const heroImages = Object.values(
   import.meta.glob('@/assets/image/heros/communities/*.{png,jpg,jpeg,PNG,JPEG}', {
     eager: true,
-    as: 'url'
+    query: '?url',
+    import: 'default'
   })
 )
 
