@@ -10,7 +10,7 @@ const textClassification = {
    focus-within:input-primary
    formkit-invalid:input-error
   `,
-  label: 'font-bold text-sm formkit-invalid:text-red-500'
+  label: 'text-sm formkit-invalid:text-red-500'
 }
 const buttonClassification = {
   input: '$reset btn btn-primary'
@@ -51,7 +51,7 @@ const theme = {
     input: '$reset range range-secondary'
   },
   search: textClassification,
-  select: { input: '$reset select select-primary w-full' },
+  select: { ...textClassification, input: '$reset select select-bordered w-full' },
   submit: buttonClassification,
   tel: textClassification,
   text: textClassification,
@@ -69,4 +69,6 @@ const theme = {
   week: textClassification
 }
 
-export const classes = generateClasses(theme)
+export const classes: Record<string, string | Record<string, boolean>> = generateClasses(
+  theme
+) as Record<string, string | Record<string, boolean>>

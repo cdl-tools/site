@@ -1,57 +1,79 @@
 <template>
-  <div v-if="eventsIsLoading">
-    <progress class="progress w-56"></progress>
-  </div>
+  <progress v-if="eventsIsLoading" class="progress block w-96 max-w-[95vw] mx-auto mt-8"></progress>
   <div v-else class="prose max-w-none mx-4">
-    <h1>{{ eventName }}</h1>
+    <h1 class="mb-0">{{ eventName }}</h1>
 
-    <progress v-if="leaderboardIsLoading" class="progress w-56"></progress>
-    <div v-else class="overflow-y-scroll max-w-full w-full -mt-8">
-      <SortedTable
-        :values="leaderboard ?? []"
-        sort="scoreRank"
-        direction="asc"
-        class="min-w-max w-full"
+    <progress
+      v-if="leaderboardIsLoading"
+      class="progress block w-96 max-w-[95vw] mx-auto mt-8"
+    ></progress>
+    <div v-else>
+      <FormKit
+        type="form"
+        :classes="{ form: 'flex gap-2 items-end not-prose' }"
+        :actions="false"
+        v-model="filters"
+        @submit.prevent.stop
       >
-        <thead>
-          <tr>
-            <th scope="col">
-              <SortLink name="scoreRank">Score Rank</SortLink>
-            </th>
-            <th scope="col">
-              <SortLink name="xlWtRank">Weight Rank</SortLink>
-            </th>
-            <th scope="col">
-              <SortLink name="username">Username</SortLink>
-            </th>
-            <th scope="col">
-              <SortLink name="team">Team</SortLink>
-            </th>
-            <th scope="col">
-              <SortLink name="community">Community</SortLink>
-            </th>
-            <th scope="col">
-              <SortLink name="score">Score</SortLink>
-            </th>
-            <th scope="col">
-              <SortLink name="shiny">Shiny</SortLink>
-            </th>
-          </tr>
-        </thead>
-        <template #body="sort">
-          <tbody>
-            <tr v-for="value in sort.values" :key="value.id">
-              <td>{{ value.scoreRank }}</td>
-              <td>{{ value.xlWtRank }}</td>
-              <td>{{ value.username }}</td>
-              <td>{{ value.team }}</td>
-              <td>{{ value.community }}</td>
-              <td>{{ value.score }}</td>
-              <td>{{ value.shiny }}</td>
+        <FormKit type="text" label="Username" placeholder="Username" name="username" />
+        <FormKit
+          type="combobox"
+          label="Community"
+          name="communities"
+          :classes="{ inner: 'w-96 max-w-96' }"
+          :options="communityOptions"
+          multiple
+        />
+      </FormKit>
+      <div class="overflow-y-scroll max-w-full w-full">
+        <SortedTable
+          :values="filteredLeaderboard"
+          sort="scoreRank"
+          direction="asc"
+          class="min-w-max w-full"
+        >
+          <thead>
+            <tr>
+              <th v-if="isFiltered" scope="col" class="text-left">Filtered Rank</th>
+              <th scope="col">
+                <SortLink name="scoreRank">Score Rank</SortLink>
+              </th>
+              <th scope="col">
+                <SortLink name="xlWtRank">Weight Rank</SortLink>
+              </th>
+              <th scope="col">
+                <SortLink name="username">Username</SortLink>
+              </th>
+              <th scope="col">
+                <SortLink name="team">Team</SortLink>
+              </th>
+              <th scope="col">
+                <SortLink name="community">Community</SortLink>
+              </th>
+              <th scope="col">
+                <SortLink name="score">Score</SortLink>
+              </th>
+              <th scope="col">
+                <SortLink name="shiny">Shiny</SortLink>
+              </th>
             </tr>
-          </tbody>
-        </template>
-      </SortedTable>
+          </thead>
+          <template #body="sort">
+            <tbody>
+              <tr v-for="(value, idx) in sort.values" :key="value.id">
+                <td v-if="isFiltered">{{ idx + 1 }}</td>
+                <td>{{ value.scoreRank }}</td>
+                <td>{{ value.xlWtRank }}</td>
+                <td>{{ value.username }}</td>
+                <td>{{ value.team }}</td>
+                <td>{{ value.community }}</td>
+                <td>{{ value.score }}</td>
+                <td>{{ value.shiny }}</td>
+              </tr>
+            </tbody>
+          </template>
+        </SortedTable>
+      </div>
     </div>
   </div>
 </template>
@@ -80,6 +102,7 @@ import { useEventList } from './index.vue'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
+const filters = ref<{ username?: string; communities?: string[] }>({})
 
 const {
   data: events, // the data returned by the loader
@@ -91,5 +114,38 @@ const { data: leaderboard, isLoading: leaderboardIsLoading } = useLeaderboardDat
 const eventName = computed(() => {
   if (!events.value) return
   return events.value.find((ev) => ev.gid === route.params.event)?.name
+})
+
+const isFiltered = computed(() => {
+  return !!filters.value.username || !!filters.value.communities?.length
+})
+
+const filteredLeaderboard = computed(() => {
+  if (!Array.isArray(leaderboard.value)) return []
+  return leaderboard.value.filter((player) => {
+    if (
+      filters.value.username &&
+      !player.username.toLowerCase().includes(filters.value.username.toLowerCase())
+    ) {
+      return false
+    }
+    if (
+      Array.isArray(filters.value.communities) &&
+      filters.value.communities.length > 0 &&
+      !filters.value.communities.includes(player.community)
+    ) {
+      return false
+    }
+    return true
+  })
+})
+
+const communityOptions = computed(() => {
+  if (!leaderboard.value) return
+  const communities = leaderboard.value.reduce(
+    (communities, player) => communities.add(player.community),
+    new Set<string>()
+  )
+  return Array.from(communities).map((community) => ({ value: community, label: community }))
 })
 </script>

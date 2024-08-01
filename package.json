@@ -23,6 +23,7 @@
   "devDependencies": {
     "@formkit/core": "^1.6.5",
     "@formkit/themes": "^1.6.5",
+    "@headlessui/vue": "^1.7.22",
     "@rushstack/eslint-patch": "^1.10.3",
     "@tailwindcss/typography": "^0.5.13",
     "@tsconfig/node20": "^20.1.4",

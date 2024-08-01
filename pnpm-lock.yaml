@@ -31,6 +31,9 @@ devDependencies:
   '@formkit/themes':
     specifier: ^1.6.5
     version: 1.6.5(tailwindcss@3.4.6)
+  '@headlessui/vue':
+    specifier: ^1.7.22
+    version: 1.7.22(vue@3.4.33)
   '@rushstack/eslint-patch':
     specifier: ^1.10.3
     version: 1.10.3
@@ -456,6 +459,16 @@ packages:
       - windicss
     dev: false
 
+  /@headlessui/vue@1.7.22(vue@3.4.33):
+    resolution: {integrity: sha512-Hoffjoolq1rY+LOfJ+B/OvkhuBXXBFgd8oBlN+l1TApma2dB0En0ucFZrwQtb33SmcCqd32EQd0y07oziXWNYg==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      vue: ^3.2.0
+    dependencies:
+      '@tanstack/vue-virtual': 3.8.3(vue@3.4.33)
+      vue: 3.4.33(typescript@5.4.5)
+    dev: true
+
   /@heroicons/vue@2.1.5(vue@3.4.33):
     resolution: {integrity: sha512-IpqR72sFqFs55kyKfFS7tN+Ww6odFNeH/7UxycIOrlVYfj4WUGAdzQtLBnJspucSeqWFQsKM0g0YrgU655BEfA==}
     peerDependencies:
@@ -711,6 +724,19 @@ packages:
       lodash.merge: 4.6.2
       postcss-selector-parser: 6.0.10
       tailwindcss: 3.4.6
+    dev: true
+
+  /@tanstack/virtual-core@3.8.3:
+    resolution: {integrity: sha512-vd2A2TnM5lbnWZnHi9B+L2gPtkSeOtJOAw358JqokIH1+v2J7vUAzFVPwB/wrye12RFOurffXu33plm4uQ+JBQ==}
+    dev: true
+
+  /@tanstack/vue-virtual@3.8.3(vue@3.4.33):
+    resolution: {integrity: sha512-xrFLkOiqLoGwohgr1+Q880hkNdQWqwi19EXzx38iAjVEm1Db3KIAV0aVP57/dnNXU3NO1Vx8wnIHII5J4n1LyA==}
+    peerDependencies:
+      vue: ^2.7.0 || ^3.0.0
+    dependencies:
+      '@tanstack/virtual-core': 3.8.3
+      vue: 3.4.33(typescript@5.4.5)
     dev: true
 
   /@tsconfig/node20@20.1.4:

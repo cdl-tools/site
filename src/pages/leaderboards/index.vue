@@ -11,13 +11,14 @@
       @submit="$router.push({ name: '/leaderboards/[event]', params: { event: $event.id } })"
     >
       <FormKit
-        :classes="{ outer: 'flex-grow' }"
+        :classes="{ outer: 'flex-grow', input: isLoading ? 'skeleton' : '' }"
         type="select"
         :options="eventOptions"
         label="Event"
         name="id"
         required="true"
         placeholder="Select event..."
+        help=""
       />
     </FormKit>
   </div>
@@ -35,6 +36,7 @@ export const useEventList = defineBasicLoader('/leaderboards' + '/', fetchEvents
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
+import NavBar from '@/components/layout/NavBar.vue'
 
 const {
   data: events, // the data returned by the loader

@@ -5,10 +5,7 @@
         <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
           <Bars3BottomLeftIcon class="h-8 w-8" />
         </div>
-        <ul
-          tabindex="0"
-          class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
-        >
+        <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 popover">
           <li>
             <RouterLink to="/">Home</RouterLink>
           </li>
