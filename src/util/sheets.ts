@@ -1,5 +1,6 @@
 import { CDL_HISTORY_SHEET } from '@/constants'
 import { fetchSheet } from '@katlyn/clipsheet'
+import type { ParsedRow } from '@katlyn/clipsheet/parser'
 
 export type GSheetTab = { name: string; gid: string }
 
@@ -19,14 +20,30 @@ export async function fetchEvents() {
   return tabs.filter((tab) => !tab.name.startsWith('ALL') && !ignoredTabs.includes(tab.name))
 }
 
-export async function fetchEvent(id: string) {
-  return fetchSheet(CDL_HISTORY_SHEET, id, undefined, {
+interface LeaderboardRow {
+  username: string
+  team: string
+  country: string
+  xsWeight: number
+  xsHeight: number
+  xlWeight: number
+  xlHeight: number
+  start: number
+  end: number
+  shiny: number
+  community: string
+  xlWtRank: number
+  scoreRank: number
+}
+
+export async function fetchEvent(id: string): Promise<LeaderboardRow[]> {
+  const data = await fetchSheet(CDL_HISTORY_SHEET, id, undefined, {
     A: 'username',
     B: 'team',
     C: 'country',
     D: 'xsWeight',
     E: 'xsHeight',
-    F: ' xlWeight',
+    F: 'xlWeight',
     G: 'xlHeight',
     H: 'start',
     I: 'end',
@@ -35,5 +52,8 @@ export async function fetchEvent(id: string) {
     L: 'community',
     M: 'xlWtRank',
     N: 'scoreRank'
-  } as const)
+  })
+
+  // FIXME: For some reason typescript doesn't pay attention to ParsedRow typings here
+  return data as unknown as LeaderboardRow[]
 }
