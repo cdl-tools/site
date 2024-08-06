@@ -45,7 +45,29 @@ const {
   reload // a function to refetch the data without navigating
 } = useEventList()
 
+function pascalCase(s: string) {
+  return s
+    .split(/\s+/)
+    .map((w) => w[0].toUpperCase() + w.slice(1).toLowerCase())
+    .join(' ')
+}
+
 const eventOptions = computed(
-  () => events.value?.map((e) => ({ label: e.name, value: e.gid })) ?? []
+  () =>
+    events.value
+      ?.reduce(
+        (options, event) => {
+          const year = event.name.split(/\s+/).find((v) => !isNaN(Number(v))) as string
+          let optgroup = options.find((opt) => opt.group === year)
+          if (optgroup === undefined) {
+            optgroup = { group: year, options: [] }
+            options.unshift(optgroup)
+          }
+          optgroup.options.unshift({ label: pascalCase(event.name), value: event.gid })
+          return options
+        },
+        [] as { group: string; options: { label: string; value: string }[] }[]
+      )
+      .sort((a, b) => b.group.localeCompare(a.group)) ?? []
 )
 </script>
