@@ -1,7 +1,9 @@
 <template>
   <div class="prose mx-4 sm:mx-auto">
     <h1>Leaderboards</h1>
-    <p>View leaderboards for past events, with players across all communities.</p>
+    <p>
+      View leaderboards for past events, with players across all communities.
+    </p>
 
     <FormKit
       :classes="{ form: 'flex gap-2 items-end' }"
@@ -25,31 +27,31 @@
 </template>
 
 <script lang="ts">
-import { defineBasicLoader } from 'unplugin-vue-router/data-loaders/basic'
-import { fetchEvents } from '@/util/sheets'
+import { defineBasicLoader } from "unplugin-vue-router/data-loaders/basic";
+import { fetchEvents } from "@/util/sheets";
 
-export const useEventList = defineBasicLoader('/leaderboards/', fetchEvents, {
+export const useEventList = defineBasicLoader("/leaderboards/", fetchEvents, {
   lazy: true,
-  commit: 'immediate'
-})
+  commit: "immediate",
+});
 </script>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import { useRouter } from 'vue-router'
+import { computed } from "vue";
+import { useRouter } from "vue-router";
 
 const {
   data: events, // the data returned by the loader
-  isLoading // a boolean indicating if the loader is fetching data
-} = useEventList()
+  isLoading, // a boolean indicating if the loader is fetching data
+} = useEventList();
 
-const router = useRouter()
+const router = useRouter();
 
 function pascalCase(s: string) {
   return s
     .split(/\s+/)
     .map((w) => w[0].toUpperCase() + w.slice(1).toLowerCase())
-    .join(' ')
+    .join(" ");
 }
 
 const eventOptions = computed(
@@ -57,21 +59,26 @@ const eventOptions = computed(
     events.value
       ?.reduce(
         (options, event) => {
-          const year = event.name.split(/\s+/).find((v) => !isNaN(Number(v))) as string
-          let optgroup = options.find((opt) => opt.group === year)
+          const year = event.name
+            .split(/\s+/)
+            .find((v) => !isNaN(Number(v))) as string;
+          let optgroup = options.find((opt) => opt.group === year);
           if (optgroup === undefined) {
-            optgroup = { group: year, options: [] }
-            options.unshift(optgroup)
+            optgroup = { group: year, options: [] };
+            options.unshift(optgroup);
           }
-          optgroup.options.unshift({ label: pascalCase(event.name), value: event.gid })
-          return options
+          optgroup.options.unshift({
+            label: pascalCase(event.name),
+            value: event.gid,
+          });
+          return options;
         },
-        [] as { group: string; options: { label: string; value: string }[] }[]
+        [] as { group: string; options: { label: string; value: string }[] }[],
       )
-      .sort((a, b) => b.group.localeCompare(a.group)) ?? []
-)
+      .sort((a, b) => b.group.localeCompare(a.group)) ?? [],
+);
 
 function navigateToLeaderboard({ id: event }: { id: string }) {
-  router.push({ name: '/leaderboards/[event]', params: { event } })
+  router.push({ name: "/leaderboards/[event]", params: { event } });
 }
 </script>

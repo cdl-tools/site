@@ -1,4 +1,4 @@
-import { generateClasses } from '@formkit/themes'
+import { generateClasses } from "@formkit/themes";
 
 const textClassification = {
   input: `
@@ -10,48 +10,51 @@ const textClassification = {
    focus-within:input-primary
    formkit-invalid:input-error
   `,
-  label: 'text-sm formkit-invalid:text-red-500'
-}
+  label: "text-sm formkit-invalid:text-red-500",
+};
 const buttonClassification = {
-  input: '$reset btn btn-primary'
-}
+  input: "$reset btn btn-primary",
+};
 
 const theme = {
   // the global key will apply to all inputs
   global: {
-    help: 'text-xs text-gray-500 m-1',
-    message: '$reset text-error text-xs m-1',
-    label: '$reset label-text m-1',
-    outer: '$reset my-2'
+    help: "text-xs text-gray-500 m-1",
+    message: "$reset text-error text-xs m-1",
+    label: "$reset label-text m-1",
+    outer: "$reset my-2",
   },
   button: buttonClassification,
   date: textClassification,
-  'datetime-local': textClassification,
+  "datetime-local": textClassification,
   checkbox: {
-    input: '$reset checkbox checkbox-accent',
-    inner: '$reset inline',
-    label: '$reset ml-2 label-text',
-    legend: '$reset font-bold px-1',
-    fieldset: '$reset card card-bordered border-accent p-2',
-    wrapper: '$reset cursor-pointer flex items-center justify-start max-w-fit'
+    input: "$reset checkbox checkbox-accent",
+    inner: "$reset inline",
+    label: "$reset ml-2 label-text",
+    legend: "$reset font-bold px-1",
+    fieldset: "$reset card card-bordered border-accent p-2",
+    wrapper: "$reset cursor-pointer flex items-center justify-start max-w-fit",
   },
   email: textClassification,
   month: textClassification,
   number: textClassification,
   password: textClassification,
   radio: {
-    input: '$reset radio radio-accent',
-    inner: '$reset inline',
-    label: '$reset ml-2 label-text',
-    legend: '$reset font-bold px-1',
-    fieldset: '$reset card card-bordered border-accent p-2',
-    wrapper: '$reset cursor-pointer flex items-center justify-start max-w-fit'
+    input: "$reset radio radio-accent",
+    inner: "$reset inline",
+    label: "$reset ml-2 label-text",
+    legend: "$reset font-bold px-1",
+    fieldset: "$reset card card-bordered border-accent p-2",
+    wrapper: "$reset cursor-pointer flex items-center justify-start max-w-fit",
   },
   range: {
-    input: '$reset range range-secondary'
+    input: "$reset range range-secondary",
   },
   search: textClassification,
-  select: { ...textClassification, input: '$reset select select-bordered w-full' },
+  select: {
+    ...textClassification,
+    input: "$reset select select-bordered w-full",
+  },
   submit: buttonClassification,
   tel: textClassification,
   text: textClassification,
@@ -62,13 +65,12 @@ const theme = {
     input-bordered
     focus-within:input-primary
     formkit-invalid:input-error
-    `
+    `,
   },
   time: textClassification,
   url: textClassification,
-  week: textClassification
-}
+  week: textClassification,
+};
 
-export const classes: Record<string, string | Record<string, boolean>> = generateClasses(
-  theme
-) as Record<string, string | Record<string, boolean>>
+export const classes: Record<string, string | Record<string, boolean>> =
+  generateClasses(theme) as Record<string, string | Record<string, boolean>>;

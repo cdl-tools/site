@@ -42,7 +42,7 @@
 }
 </style>
 <script setup lang="ts">
-import { Bars3BottomLeftIcon } from '@heroicons/vue/24/solid'
-import CDLLogo from '@/components/icons/CDLLogo.vue'
-import { CDL_DISCORD_INVITE } from '@/constants'
+import { Bars3BottomLeftIcon } from "@heroicons/vue/24/solid";
+import CDLLogo from "@/components/icons/CDLLogo.vue";
+import { CDL_DISCORD_INVITE } from "@/constants";
 </script>

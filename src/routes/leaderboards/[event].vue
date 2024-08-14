@@ -1,5 +1,8 @@
 <template>
-  <progress v-if="eventsIsLoading" class="progress block w-96 max-w-[95vw] mx-auto mt-8"></progress>
+  <progress
+    v-if="eventsIsLoading"
+    class="progress block w-96 max-w-[95vw] mx-auto mt-8"
+  ></progress>
   <div v-else class="prose max-w-none mx-4">
     <h1 class="mb-0">{{ eventName }}</h1>
 
@@ -15,7 +18,12 @@
         v-model="filters"
         @submit.prevent.stop
       >
-        <FormKit type="text" label="Username" placeholder="Username" name="username" />
+        <FormKit
+          type="text"
+          label="Username"
+          placeholder="Username"
+          name="username"
+        />
         <FormKit
           type="combobox"
           label="Community"
@@ -34,7 +42,9 @@
         >
           <thead>
             <tr>
-              <th v-if="isFiltered" scope="col" class="text-left">Filtered Rank</th>
+              <th v-if="isFiltered" scope="col" class="text-left">
+                Filtered Rank
+              </th>
               <th scope="col">
                 <SortLink name="scoreRank">Score Rank</SortLink>
               </th>
@@ -79,73 +89,79 @@
 </template>
 
 <script lang="ts">
-import { defineBasicLoader } from 'unplugin-vue-router/data-loaders/basic'
-import { fetchEvent } from '@/util/sheets'
+import { defineBasicLoader } from "unplugin-vue-router/data-loaders/basic";
+import { fetchEvent } from "@/util/sheets";
 
 export const useLeaderboardData = defineBasicLoader(
-  '/leaderboards/[event]',
+  "/leaderboards/[event]",
   async (to) => {
-    return fetchEvent(to.params.event)
+    return fetchEvent(to.params.event);
   },
   {
-    lazy: true
-  }
-)
+    lazy: true,
+  },
+);
 </script>
 
 <script setup lang="ts">
-import SortedTable from '@/components/tables/SortedTable.vue'
-import SortLink from '@/components/tables/SortLink.vue'
-import { computed, ref } from 'vue'
+import SortedTable from "@/components/tables/SortedTable.vue";
+import SortLink from "@/components/tables/SortLink.vue";
+import { computed, ref } from "vue";
 
-import { useEventList } from './index.vue'
-import { useRoute } from 'vue-router'
+import { useEventList } from "./index.vue";
+import { useRoute } from "vue-router";
 
-const route = useRoute('/leaderboards/[event]')
-const filters = ref<{ username?: string; communities?: string[] }>({})
+const route = useRoute("/leaderboards/[event]");
+const filters = ref<{ username?: string; communities?: string[] }>({});
 
 const {
   data: events, // the data returned by the loader
-  isLoading: eventsIsLoading // a boolean indicating if the loader is fetching data
-} = useEventList()
+  isLoading: eventsIsLoading, // a boolean indicating if the loader is fetching data
+} = useEventList();
 
-const { data: leaderboard, isLoading: leaderboardIsLoading } = useLeaderboardData()
+const { data: leaderboard, isLoading: leaderboardIsLoading } =
+  useLeaderboardData();
 
 const eventName = computed(() => {
-  if (!events.value) return
-  return events.value.find((ev) => ev.gid === route.params.event)?.name
-})
+  if (!events.value) return;
+  return events.value.find((ev) => ev.gid === route.params.event)?.name;
+});
 
 const isFiltered = computed(() => {
-  return !!filters.value.username || !!filters.value.communities?.length
-})
+  return !!filters.value.username || !!filters.value.communities?.length;
+});
 
 const filteredLeaderboard = computed(() => {
-  if (!Array.isArray(leaderboard.value)) return []
+  if (!Array.isArray(leaderboard.value)) return [];
   return leaderboard.value.filter((player) => {
     if (
       filters.value.username &&
-      !player.username.toLowerCase().includes(filters.value.username.toLowerCase())
+      !player.username
+        .toLowerCase()
+        .includes(filters.value.username.toLowerCase())
     ) {
-      return false
+      return false;
     }
     if (
       Array.isArray(filters.value.communities) &&
       filters.value.communities.length > 0 &&
       !filters.value.communities.includes(player.community)
     ) {
-      return false
+      return false;
     }
-    return true
-  })
-})
+    return true;
+  });
+});
 
 const communityOptions = computed(() => {
-  if (!leaderboard.value) return
+  if (!leaderboard.value) return;
   const communities = leaderboard.value.reduce(
     (communities, player) => communities.add(player.community),
-    new Set<string>()
-  )
-  return Array.from(communities).map((community) => ({ value: community, label: community }))
-})
+    new Set<string>(),
+  );
+  return Array.from(communities).map((community) => ({
+    value: community,
+    label: community,
+  }));
+});
 </script>

@@ -1,7 +1,12 @@
 <template>
   <Combobox v-model="selected" nullable :multiple="multiple">
-    <div class="relative input input-bordered p-0" :class="props.context.classes.input">
-      <div class="relative w-full cursor-default overflow-hidden text-left h-full flex">
+    <div
+      class="relative input input-bordered p-0"
+      :class="props.context.classes.input"
+    >
+      <div
+        class="relative w-full cursor-default overflow-hidden text-left h-full flex"
+      >
         <div class="flex-grow" :class="{ 'overflow-x-scroll flex': multiple }">
           <ul
             v-if="Array.isArray(selected) && selected.length > 0"
@@ -14,13 +19,18 @@
             >
               {{ item.label }}
               <button>
-                <XMarkIcon @click.prevent="deselect(item.value)" class="h-4 inline-block" />
+                <XMarkIcon
+                  @click.prevent="deselect(item.value)"
+                  class="h-4 inline-block"
+                />
               </button>
             </li>
           </ul>
           <ComboboxInput
             class="w-full h-full leading-6 px-4 min-w-64 w-full"
-            :displayValue="(option) => (option as ComboboxOptionType | null)?.label ?? ''"
+            :displayValue="
+              (option) => (option as ComboboxOptionType | null)?.label ?? ''
+            "
             @change="query = $event.target.value"
             placeholder="Select community..."
           />
@@ -37,7 +47,9 @@
         leave-from-class="transform scale-100 opacity-100"
         leave-to-class="transform scale-95 opacity-0"
       >
-        <ComboboxOptions class="absolute popover w-full rounded-b-lg max-h-96 overflow-y-scroll">
+        <ComboboxOptions
+          class="absolute popover w-full rounded-b-lg max-h-96 overflow-y-scroll"
+        >
           <div
             v-if="filteredOptions.length === 0 && query !== ''"
             class="relative cursor-default select-none px-4 py-2 text-gray-500"
@@ -55,7 +67,7 @@
             <li
               class="relative cursor-default select-none py-2 pl-10 pr-4 rounded"
               :class="{
-                'bg-primary text-primary-content': active
+                'bg-primary text-primary-content': active,
               }"
             >
               <span
@@ -67,7 +79,10 @@
               <span
                 v-if="selected"
                 class="absolute inset-y-0 left-0 flex items-center pl-3"
-                :class="{ 'text-primary-content': active, 'text-primary': !active }"
+                :class="{
+                  'text-primary-content': active,
+                  'text-primary': !active,
+                }"
               >
                 <CheckIcon class="h-5 w-5" aria-hidden="true" />
               </span>
@@ -80,61 +95,69 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch } from "vue";
 import {
   Combobox,
   ComboboxInput,
   ComboboxButton,
   ComboboxOptions,
-  ComboboxOption
-} from '@headlessui/vue'
-import { CheckIcon, ChevronUpDownIcon, XMarkIcon } from '@heroicons/vue/20/solid'
+  ComboboxOption,
+} from "@headlessui/vue";
+import {
+  CheckIcon,
+  ChevronUpDownIcon,
+  XMarkIcon,
+} from "@heroicons/vue/20/solid";
 
-export type ComboboxOptionType = { label: string; value: any }
+export type ComboboxOptionType = { label: string; value: any };
 const props = defineProps<{
   context: Record<string, any> & {
-    multiple?: boolean
-    options: ComboboxOptionType[]
-  }
-}>()
+    multiple?: boolean;
+    options: ComboboxOptionType[];
+  };
+}>();
 
 const selected = ref<ComboboxOptionType | null | ComboboxOptionType[]>(
-  props.context.multiple !== undefined ? [] : null
-)
-const query = ref('')
+  props.context.multiple !== undefined ? [] : null,
+);
+const query = ref("");
 
 const filteredOptions = computed(() =>
-  query.value === ''
+  query.value === ""
     ? [...props.context.options].sort()
     : props.context.options
-        .filter((option) => option.label.toLowerCase().includes(query.value.toLowerCase()))
-        .sort()
-)
+        .filter((option) =>
+          option.label.toLowerCase().includes(query.value.toLowerCase()),
+        )
+        .sort(),
+);
 
-const multiple = computed(() => props.context.multiple !== undefined)
+const multiple = computed(() => props.context.multiple !== undefined);
 
 watch(multiple, () => {
-  console.log('a')
-  console.log(multiple)
+  console.log("a");
+  console.log(multiple);
   if (multiple.value && !Array.isArray(selected.value)) {
-    selected.value = selected.value === null ? [] : [selected.value]
+    selected.value = selected.value === null ? [] : [selected.value];
   } else if (!multiple.value && Array.isArray(selected.value)) {
-    selected.value = selected.value[0] ?? null
+    selected.value = selected.value[0] ?? null;
   }
-})
+});
 
 watch(selected, () => {
   props.context.node.input(
-    Array.isArray(selected.value) ? selected.value.map((v) => v.value) : selected.value?.value
-  )
-})
+    Array.isArray(selected.value)
+      ? selected.value.map((v) => v.value)
+      : selected.value?.value,
+  );
+});
 
 function deselect(value: unknown) {
-  console.log(value)
+  console.log(value);
   if (Array.isArray(selected.value)) {
-    selected.value = selected.value.filter((v) => v.value !== value)
+    selected.value = selected.value.filter((v) => v.value !== value);
   } else if (selected.value === value) {
-    selected.value = null
+    selected.value = null;
   }
 }
 </script>

@@ -20,17 +20,17 @@
 </template>
 
 <script setup lang="ts">
-import { inject } from 'vue'
-import { ArrowUpIcon, ArrowDownIcon } from '@heroicons/vue/16/solid'
-import type { SortDirection } from '@/components/tables/SortedTable.vue'
+import { inject } from "vue";
+import { ArrowUpIcon, ArrowDownIcon } from "@heroicons/vue/16/solid";
+import type { SortDirection } from "@/components/tables/SortedTable.vue";
 
 interface Props {
-  name: string
+  name: string;
 }
 
-const props = defineProps<Props>()
+const props = defineProps<Props>();
 
-const currentSort = inject('currentSort')
-const sortDirection = inject<SortDirection>('sortDirection')
-const toggleSort = inject<(column: string) => void>('toggleSort')
+const currentSort = inject("currentSort");
+const sortDirection = inject<SortDirection>("sortDirection");
+const toggleSort = inject<(column: string) => void>("toggleSort");
 </script>
