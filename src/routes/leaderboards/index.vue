@@ -8,7 +8,7 @@
       :disabled="isLoading"
       type="form"
       submit-label="View Leaderboard"
-      @submit="$router.push({ name: '/leaderboards/[event]', params: { event: $event.id } })"
+      @submit="navigateToLeaderboard"
     >
       <FormKit
         :classes="{ outer: 'flex-grow', input: isLoading ? 'skeleton' : '' }"
@@ -36,7 +36,7 @@ export const useEventList = defineBasicLoader('/leaderboards' + '/', fetchEvents
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import NavBar from '@/components/layout/NavBar.vue'
+import { useRouter } from 'vue-router'
 
 const {
   data: events, // the data returned by the loader
@@ -44,6 +44,8 @@ const {
   error, // an error object if the loader failed
   reload // a function to refetch the data without navigating
 } = useEventList()
+
+const router = useRouter()
 
 function pascalCase(s: string) {
   return s
@@ -70,4 +72,8 @@ const eventOptions = computed(
       )
       .sort((a, b) => b.group.localeCompare(a.group)) ?? []
 )
+
+function navigateToLeaderboard({ id: event }: { id: string }) {
+  router.push({ name: '/leaderboards/[event]', params: { event } })
+}
 </script>
