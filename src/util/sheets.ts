@@ -1,6 +1,5 @@
 import { CDL_HISTORY_SHEET } from '@/constants'
 import { fetchSheet } from '@katlyn/clipsheet'
-import type { ParsedRow } from '@katlyn/clipsheet/parser'
 
 export type GSheetTab = { name: string; gid: string }
 
@@ -20,7 +19,7 @@ export async function fetchEvents() {
   return tabs.filter((tab) => !tab.name.startsWith('ALL') && !ignoredTabs.includes(tab.name))
 }
 
-interface LeaderboardRow {
+export interface LeaderboardRow {
   username: string
   team: string
   country: string
@@ -36,7 +35,9 @@ interface LeaderboardRow {
   scoreRank: number
 }
 
-export async function fetchEvent(id: string): Promise<LeaderboardRow[]> {
+export type LeaderboardRows = LeaderboardRow[]
+
+export async function fetchEvent(id: string): Promise<LeaderboardRows> {
   const data = await fetchSheet(CDL_HISTORY_SHEET, id, undefined, {
     A: 'username',
     B: 'team',
@@ -55,5 +56,5 @@ export async function fetchEvent(id: string): Promise<LeaderboardRow[]> {
   })
 
   // FIXME: For some reason typescript doesn't pay attention to ParsedRow typings here
-  return data as unknown as LeaderboardRow[]
+  return data as unknown as LeaderboardRows
 }

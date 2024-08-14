@@ -83,9 +83,9 @@ import { defineBasicLoader } from 'unplugin-vue-router/data-loaders/basic'
 import { fetchEvent } from '@/util/sheets'
 
 export const useLeaderboardData = defineBasicLoader(
-  '/leaderboards' + '/',
+  '/leaderboards/[event]',
   async (to) => {
-    return fetchEvent(to.params.event as string)
+    return fetchEvent(to.params.event)
   },
   {
     lazy: true
@@ -101,7 +101,7 @@ import { computed, ref } from 'vue'
 import { useEventList } from './index.vue'
 import { useRoute } from 'vue-router'
 
-const route = useRoute()
+const route = useRoute('/leaderboards/[event]')
 const filters = ref<{ username?: string; communities?: string[] }>({})
 
 const {

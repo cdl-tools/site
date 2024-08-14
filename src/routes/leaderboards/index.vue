@@ -28,21 +28,19 @@
 import { defineBasicLoader } from 'unplugin-vue-router/data-loaders/basic'
 import { fetchEvents } from '@/util/sheets'
 
-export const useEventList = defineBasicLoader('/leaderboards' + '/', fetchEvents, {
+export const useEventList = defineBasicLoader('/leaderboards/', fetchEvents, {
   lazy: true,
   commit: 'immediate'
 })
 </script>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 
 const {
   data: events, // the data returned by the loader
-  isLoading, // a boolean indicating if the loader is fetching data
-  error, // an error object if the loader failed
-  reload // a function to refetch the data without navigating
+  isLoading // a boolean indicating if the loader is fetching data
 } = useEventList()
 
 const router = useRouter()
