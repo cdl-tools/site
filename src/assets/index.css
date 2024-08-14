@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 .popover {
-    @apply bg-base-100 z-[1] p-2 shadow
+  @apply bg-base-100 z-[1] p-2 shadow;
 }

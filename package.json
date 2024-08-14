@@ -10,7 +10,8 @@
     "build-only": "vite build",
     "type-check": "vue-tsc --build --force",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
-    "format": "prettier --write src/"
+    "format": "prettier --write src/",
+    "prepare": "husky"
   },
   "dependencies": {
     "@formkit/vue": "^1.6.5",
@@ -36,6 +37,8 @@
     "daisyui": "^4.12.10",
     "eslint": "^8.57.0",
     "eslint-plugin-vue": "^9.27.0",
+    "husky": "^9.1.4",
+    "lint-staged": "^15.2.9",
     "npm-run-all2": "^6.2.2",
     "postcss": "^8.4.40",
     "prettier": "^3.3.3",
@@ -44,6 +47,9 @@
     "unplugin-vue-router": "^0.10.1",
     "vite": "^5.3.4",
     "vue-tsc": "^2.0.28"
+  },
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
   },
   "packageManager": "pnpm@8.15.4+sha512.0bd3a9be9eb0e9a692676deec00a303ba218ba279d99241475616b398dbaeedd11146f92c2843458f557b1d127e09d4c171e105bdcd6b61002b39685a8016b9e"
 }
