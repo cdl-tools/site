@@ -1,59 +1,40 @@
 {
-  "name": "cdl-website",
-  "version": "0.0.0",
+  "name": "nuxt-app",
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "run-p type-check \"build-only {@}\" --",
-    "preview": "vite preview",
-    "build-only": "vite build",
-    "type-check": "vue-tsc --build --force",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
-    "format": "prettier --write src/",
-    "prepare": "husky"
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@formkit/nuxt": "^1.6.5",
+    "@formkit/themes": "^1.6.5",
     "@formkit/vue": "^1.6.5",
     "@heroicons/vue": "^2.1.5",
     "@katlyn/clipsheet": "npm:@jsr/katlyn__clipsheet@^0.2.2",
-    "@unhead/vue": "^1.9.16",
-    "vue": "^3.4.37",
-    "vue-router": "^4.4.3"
+    "@nuxt/eslint": "^0.5.1",
+    "@tailwindcss/typography": "^0.5.14",
+    "daisyui": "^4.12.10",
+    "nuxt-typed-router": "^3.6.5",
+    "vue": "latest"
   },
   "devDependencies": {
-    "@formkit/core": "^1.6.5",
-    "@formkit/themes": "^1.6.5",
-    "@headlessui/vue": "^1.7.22",
-    "@rushstack/eslint-patch": "^1.10.4",
-    "@tailwindcss/typography": "^0.5.14",
-    "@tsconfig/node20": "^20.1.4",
-    "@types/node": "^20.14.15",
-    "@vitejs/plugin-vue": "^5.1.2",
-    "@vue/eslint-config-prettier": "^9.0.0",
-    "@vue/eslint-config-typescript": "^13.0.0",
-    "@vue/tsconfig": "^0.5.1",
-    "autoprefixer": "^10.4.20",
-    "daisyui": "^4.12.10",
-    "eslint": "^8.57.0",
-    "eslint-plugin-vue": "^9.27.0",
-    "husky": "^9.1.4",
+    "@nuxtjs/tailwindcss": "^6.12.1",
     "lint-staged": "^15.2.9",
-    "npm-run-all2": "^6.2.2",
-    "postcss": "^8.4.41",
-    "prettier": "^3.3.3",
-    "tailwindcss": "^3.4.10",
-    "typescript": "~5.4.5",
-    "unplugin-vue-router": "^0.10.3",
-    "vite": "^5.4.0",
+    "nuxt": "^3.13.0",
+    "nuxt-headlessui": "^1.2.0",
+    "typescript": "^5.5.4",
     "vue-tsc": "^2.0.29"
   },
   "lint-staged": {
-    "*.{js,ts,vue}": [
-      "eslint",
-      "prettier --write --ignore-unknown"
-    ],
-    "**/*": "prettier --write --ignore-unknown"
+    "**/*": "prettier --write --ignore-unknown",
+    "**/*.{js,ts,vue}": [
+      "prettier --write --ignore-unknown",
+      "eslint"
+    ]
   },
-  "packageManager": "pnpm@8.15.4+sha512.0bd3a9be9eb0e9a692676deec00a303ba218ba279d99241475616b398dbaeedd11146f92c2843458f557b1d127e09d4c171e105bdcd6b61002b39685a8016b9e"
+  "packageManager": "pnpm@9.7.0+sha512.dc09430156b427f5ecfc79888899e1c39d2d690f004be70e05230b72cb173d96839587545d09429b55ac3c429c801b4dc3c0e002f653830a420fa2dd4e3cf9cf"
 }

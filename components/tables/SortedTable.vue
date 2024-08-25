@@ -3,10 +3,10 @@
 
 <template>
   <table class="table-pin-rows">
-    <slot></slot>
-    <slot name="head"></slot>
-    <slot name="body" :values="sortedValues"></slot>
-    <slot name="foot"></slot>
+    <slot />
+    <slot name="head" />
+    <slot name="body" :values="sortedValues" />
+    <slot name="foot" />
   </table>
 </template>
 
@@ -15,8 +15,10 @@ import { computed, provide, ref } from "vue";
 
 export type SortDirection = "asc" | "desc";
 
-interface Props<T extends Record<string, any> = Record<string, any>> {
-  values: Array<T>;
+interface Props<
+  T extends Record<string, string | number> = Record<string, string | number>,
+> {
+  values: T[];
   direction?: SortDirection;
   sort?: keyof T;
 }
