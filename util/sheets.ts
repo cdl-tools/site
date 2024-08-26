@@ -1,19 +1,15 @@
-import { CDL_HISTORY_SHEET } from "@/constants";
+import { CDL_HISTORY_SHEET } from "~/constants";
 import { fetchSheet } from "@katlyn/clipsheet";
 
 export type GSheetTab = { name: string; gid: string };
 
-export async function fetchSheetTabs(key: string): Promise<GSheetTab[]> {
+export async function fetchSheetTabs(key: string) {
   const url = new URL("https://valor.instinct.mystic.services/api/sheetTabs");
   url.searchParams.set("key", key);
-  const response = await fetch(url);
-  if (response.status !== 200) {
-    throw new Error("Fetching sheet not OK");
-  }
-  return await response.json();
+  return $fetch<GSheetTab[]>(url.toString());
 }
 
-export async function fetchEvents() {
+export async function fetchEventList() {
   const ignoredTabs = [
     "CDL Entry",
     "Databank",

@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import { RouterView } from "vue-router";
-import Navbar from "@/components/layout/NavBar.vue";
-import Footer from "@/components/layout/Footer.vue";
+import "~/assets/index.css";
+
+provideHeadlessUseId(() => useId());
 </script>
 
 <template>
   <div class="max-h-dvh min-h-dvh flex flex-col">
-    <Navbar />
+    <LayoutNavBar />
     <div class="flex-grow overflow-y-scroll flex flex-col justify-between">
       <div>
-        <RouterView />
+        <NuxtPage />
       </div>
-      <Footer class="mt-auto" />
+      <LayoutFooter class="mt-auto" />
     </div>
   </div>
 </template>

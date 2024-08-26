@@ -22,5 +22,5 @@
 <script setup lang="ts">
 import DiscordIcon from "@/components/icons/DiscordIcon.vue";
 import CDLLogo from "@/components/icons/CDLLogo.vue";
-import { CDL_DISCORD_INVITE } from "@/constants";
+import { CDL_DISCORD_INVITE } from "~/constants";
 </script>

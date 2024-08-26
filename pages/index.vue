@@ -1,9 +1,6 @@
 <template>
-  <div
-    class="hero min-h-screen"
-    :style="`background-image: url(${randHero()})`"
-  >
-    <div class="hero-overlay bg-opacity-60"></div>
+  <div class="hero min-h-screen" :style="`background-image: url(${randHero})`">
+    <div class="hero-overlay bg-opacity-60" />
     <div class="hero-content text-neutral-content text-center">
       <div class="max-w-lg">
         <CDLLogo class="h-48 mb-8 inline-block" />
@@ -26,9 +23,11 @@
 <script setup lang="ts">
 import { ArrowRightIcon } from "@heroicons/vue/24/solid";
 import CDLLogo from "@/components/icons/CDLLogo.vue";
-import { CDL_DISCORD_INVITE } from "@/constants";
+import { CDL_DISCORD_INVITE } from "~/constants";
 
 const heroImages = Object.values(
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-expect-error
   import.meta.glob(
     "@/assets/image/heros/communities/*.{png,jpg,jpeg,PNG,JPEG}",
     {
@@ -39,7 +38,8 @@ const heroImages = Object.values(
   ),
 );
 
-function randHero() {
-  return heroImages[Math.floor(Math.random() * heroImages.length)];
-}
+const randHero = useState(
+  "randHero",
+  () => heroImages[Math.floor(Math.random() * heroImages.length)],
+);
 </script>

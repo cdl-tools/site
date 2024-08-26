@@ -1,8 +1,8 @@
 <template>
-  <Combobox v-model="selected" nullable :multiple="multiple">
+  <HeadlessCombobox v-model="selected" nullable :multiple="multiple">
     <div
       class="relative input input-bordered p-0"
-      :class="props.context.classes.input"
+      :class="(props.context.classes as Record<string, string>).input"
     >
       <div
         class="relative w-full cursor-default overflow-hidden text-left h-full flex"
@@ -20,24 +20,24 @@
               {{ item.label }}
               <button>
                 <XMarkIcon
-                  @click.prevent="deselect(item.value)"
                   class="h-4 inline-block"
+                  @click.prevent="deselect(item.value)"
                 />
               </button>
             </li>
           </ul>
-          <ComboboxInput
+          <HeadlessComboboxInput
             class="w-full h-full leading-6 px-4 min-w-64 w-full"
-            :displayValue="
+            :display-value="
               (option) => (option as ComboboxOptionType | null)?.label ?? ''
             "
-            @change="query = $event.target.value"
             placeholder="Select community..."
+            @change="query = $event.target.value"
           />
         </div>
-        <ComboboxButton class="flex items-center p-2">
+        <HeadlessComboboxButton class="flex items-center p-2">
           <ChevronUpDownIcon class="h-5 w-5 text-gray-400" aria-hidden="true" />
-        </ComboboxButton>
+        </HeadlessComboboxButton>
       </div>
       <transition
         enter-active-class="transition duration-100 ease-out"
@@ -47,7 +47,7 @@
         leave-from-class="transform scale-100 opacity-100"
         leave-to-class="transform scale-95 opacity-0"
       >
-        <ComboboxOptions
+        <HeadlessComboboxOptions
           class="absolute popover w-full rounded-b-lg max-h-96 overflow-y-scroll"
         >
           <div
@@ -57,12 +57,12 @@
             No results.
           </div>
 
-          <ComboboxOption
+          <HeadlessComboboxOption
             v-for="option in filteredOptions"
-            as="template"
             :key="option.value"
-            :value="option"
             v-slot="{ selected, active }"
+            as="template"
+            :value="option"
           >
             <li
               class="relative cursor-default select-none py-2 pl-10 pr-4 rounded"
@@ -87,31 +87,27 @@
                 <CheckIcon class="h-5 w-5" aria-hidden="true" />
               </span>
             </li>
-          </ComboboxOption>
-        </ComboboxOptions>
+          </HeadlessComboboxOption>
+        </HeadlessComboboxOptions>
       </transition>
     </div>
-  </Combobox>
+  </HeadlessCombobox>
 </template>
 
 <script setup lang="ts">
 import { ref, computed, watch } from "vue";
-import {
-  Combobox,
-  ComboboxInput,
-  ComboboxButton,
-  ComboboxOptions,
-  ComboboxOption,
-} from "@headlessui/vue";
 import {
   CheckIcon,
   ChevronUpDownIcon,
   XMarkIcon,
 } from "@heroicons/vue/20/solid";
 
-export type ComboboxOptionType = { label: string; value: any };
+export type ComboboxOptionType = {
+  label: string;
+  value: string;
+};
 const props = defineProps<{
-  context: Record<string, any> & {
+  context: Record<string, unknown> & {
     multiple?: boolean;
     options: ComboboxOptionType[];
   };
@@ -135,8 +131,6 @@ const filteredOptions = computed(() =>
 const multiple = computed(() => props.context.multiple !== undefined);
 
 watch(multiple, () => {
-  console.log("a");
-  console.log(multiple);
   if (multiple.value && !Array.isArray(selected.value)) {
     selected.value = selected.value === null ? [] : [selected.value];
   } else if (!multiple.value && Array.isArray(selected.value)) {
@@ -145,6 +139,7 @@ watch(multiple, () => {
 });
 
 watch(selected, () => {
+  // @ts-expect-error AAAAAA I don't know what type to use for this and formkit is annoying
   props.context.node.input(
     Array.isArray(selected.value)
       ? selected.value.map((v) => v.value)
@@ -153,7 +148,6 @@ watch(selected, () => {
 });
 
 function deselect(value: unknown) {
-  console.log(value);
   if (Array.isArray(selected.value)) {
     selected.value = selected.value.filter((v) => v.value !== value);
   } else if (selected.value === value) {

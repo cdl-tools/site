@@ -7,26 +7,26 @@
         </div>
         <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 popover">
           <li>
-            <RouterLink to="/">Home</RouterLink>
+            <NuxtLink to="/">Home</NuxtLink>
           </li>
           <li>
-            <RouterLink to="/leaderboards">Leaderboards</RouterLink>
+            <NuxtLink to="/leaderboards">Leaderboards</NuxtLink>
           </li>
         </ul>
       </div>
-      <RouterLink to="/" class="inline-flex font-bold gap-2 text-xl m-2">
+      <NuxtLink to="/" class="inline-flex font-bold gap-2 text-xl m-2">
         <CDLLogo class="max-h-8" />
         <span class="sm:hidden">CDL</span>
         <span class="hidden sm:inline">Community Day League</span>
-      </RouterLink>
+      </NuxtLink>
     </div>
     <div class="navbar-center hidden lg:flex">
       <ul class="menu menu-horizontal px-1">
         <li>
-          <RouterLink to="/">Home</RouterLink>
+          <NuxtLink to="/">Home</NuxtLink>
         </li>
         <li>
-          <RouterLink to="/leaderboards">Leaderboards</RouterLink>
+          <NuxtLink to="/leaderboards">Leaderboards</NuxtLink>
         </li>
       </ul>
     </div>
@@ -36,13 +36,13 @@
   </div>
 </template>
 
+<script setup lang="ts">
+import { Bars3BottomLeftIcon } from "@heroicons/vue/24/solid";
+import CDLLogo from "@/components/icons/CDLLogo.vue";
+import { CDL_DISCORD_INVITE } from "~/constants";
+</script>
 <style scoped>
 .navbar-center .router-link-active {
   @apply text-primary;
 }
 </style>
-<script setup lang="ts">
-import { Bars3BottomLeftIcon } from "@heroicons/vue/24/solid";
-import CDLLogo from "@/components/icons/CDLLogo.vue";
-import { CDL_DISCORD_INVITE } from "@/constants";
-</script>
