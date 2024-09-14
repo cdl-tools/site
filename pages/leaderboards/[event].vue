@@ -142,10 +142,12 @@ const communityOptions = computed(() => {
     (communities, player) => communities.add(player.community),
     new Set<string>(),
   );
-  return Array.from(communities).map((community) => ({
-    value: community,
-    label: community,
-  }));
+  return Array.from(communities)
+    .map((community) => ({
+      value: community,
+      label: community,
+    }))
+    .sort((a, b) => a.label.localeCompare(b.label));
 });
 
 usePageMeta({
