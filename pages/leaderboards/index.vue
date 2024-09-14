@@ -28,7 +28,7 @@
 import { computed } from "vue";
 
 usePageMeta({
-  title: "Leaderboards",
+  title: "Event Leaderboards",
 });
 
 const { data: events, status } = useEventList();
