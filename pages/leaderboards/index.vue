@@ -27,6 +27,10 @@
 <script setup lang="ts">
 import { computed } from "vue";
 
+useSeoMeta({
+  title: "Leaderboards",
+});
+
 const { data: events, status } = useEventList();
 
 function pascalCase(s: string) {
