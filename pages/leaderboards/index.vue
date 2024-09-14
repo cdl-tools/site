@@ -27,7 +27,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
 
-useSeoMeta({
+usePageMeta({
   title: "Leaderboards",
 });
 

@@ -148,7 +148,7 @@ const communityOptions = computed(() => {
   }));
 });
 
-useSeoMeta({
+usePageMeta({
   title: eventName,
 });
 </script>
