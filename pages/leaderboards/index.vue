@@ -39,9 +39,10 @@ function pascalCase(s: string) {
 const eventOptions = computed(() => {
   const grouped = (events.value ?? []).reduce(
     (options, event) => {
-      const year = event.name
-        .split(/\s+/)
-        .find((v) => !isNaN(Number(v))) as string;
+      const year = event.name.split(/\s+/).find((v) => !isNaN(Number(v)));
+      if (year === undefined) {
+        return options;
+      }
       let optgroup = options.find((opt) => opt.group === year);
       if (optgroup === undefined) {
         optgroup = { group: year, options: [] };

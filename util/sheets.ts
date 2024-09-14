@@ -12,6 +12,7 @@ export async function fetchSheetTabs(key: string) {
 export async function fetchEventList() {
   const ignoredTabs = [
     "CDL Entry",
+    "CDEX Entry",
     "Databank",
     "Group Scores",
     "2023",
