@@ -149,6 +149,6 @@ const communityOptions = computed(() => {
 });
 
 usePageMeta({
-  title: eventName,
+  title: computed(() => `${eventName.value} Leaderboard`),
 });
 </script>

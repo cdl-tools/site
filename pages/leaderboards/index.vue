@@ -33,13 +33,6 @@ usePageMeta({
 
 const { data: events, status } = useEventList();
 
-function pascalCase(s: string) {
-  return s
-    .split(/\s+/)
-    .map((w) => w[0].toUpperCase() + w.slice(1).toLowerCase())
-    .join(" ");
-}
-
 const eventOptions = computed(() => {
   const grouped = (events.value ?? []).reduce(
     (options, event) => {
@@ -53,7 +46,7 @@ const eventOptions = computed(() => {
         options.unshift(optgroup);
       }
       optgroup.options.unshift({
-        label: pascalCase(event.name),
+        label: event.name,
         value: event.gid,
       });
       return options;
