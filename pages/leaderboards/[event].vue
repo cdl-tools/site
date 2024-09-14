@@ -110,8 +110,7 @@ const { data: leaderboard, status: leaderboardStatus } = useLeaderboardData(
 );
 
 const eventName = computed(() => {
-  if (!events.value) return;
-  return events.value.find((ev) => ev.gid === route.params.event)?.name;
+  return events.value?.find((ev) => ev.gid === route.params.event)?.name ?? "";
 });
 
 const isFiltered = computed(() => {
@@ -147,5 +146,9 @@ const communityOptions = computed(() => {
     value: community,
     label: community,
   }));
+});
+
+usePageMeta({
+  title: computed(() => `${eventName.value} Leaderboard`),
 });
 </script>

@@ -9,18 +9,28 @@ export async function fetchSheetTabs(key: string) {
   return $fetch<GSheetTab[]>(url.toString());
 }
 
+function pascalCase(s: string) {
+  return s
+    .split(/\s+/)
+    .map((w) => w[0].toUpperCase() + w.slice(1).toLowerCase())
+    .join(" ");
+}
+
 export async function fetchEventList() {
   const ignoredTabs = [
     "CDL Entry",
+    "CDEX Entry",
     "Databank",
     "Group Scores",
     "2023",
     "GO Fest",
   ];
   const tabs = await fetchSheetTabs(CDL_HISTORY_SHEET);
-  return tabs.filter(
-    (tab) => !tab.name.startsWith("ALL") && !ignoredTabs.includes(tab.name),
-  );
+  return tabs
+    .filter(
+      (tab) => !tab.name.startsWith("ALL") && !ignoredTabs.includes(tab.name),
+    )
+    .map((tab) => ({ ...tab, name: pascalCase(tab.name) }));
 }
 
 export interface LeaderboardRow {

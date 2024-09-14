@@ -27,28 +27,26 @@
 <script setup lang="ts">
 import { computed } from "vue";
 
-const { data: events, status } = useEventList();
+usePageMeta({
+  title: "Event Leaderboards",
+});
 
-function pascalCase(s: string) {
-  return s
-    .split(/\s+/)
-    .map((w) => w[0].toUpperCase() + w.slice(1).toLowerCase())
-    .join(" ");
-}
+const { data: events, status } = useEventList();
 
 const eventOptions = computed(() => {
   const grouped = (events.value ?? []).reduce(
     (options, event) => {
-      const year = event.name
-        .split(/\s+/)
-        .find((v) => !isNaN(Number(v))) as string;
+      const year = event.name.split(/\s+/).find((v) => !isNaN(Number(v)));
+      if (year === undefined) {
+        return options;
+      }
       let optgroup = options.find((opt) => opt.group === year);
       if (optgroup === undefined) {
         optgroup = { group: year, options: [] };
         options.unshift(optgroup);
       }
       optgroup.options.unshift({
-        label: pascalCase(event.name),
+        label: event.name,
         value: event.gid,
       });
       return options;
