@@ -45,6 +45,13 @@ function sortValues(
 ) {
   const modifier = direction === "asc" ? 1 : -1;
   return [...values].sort((a, b) => {
+    console.log(a[key]);
+    if (a[key] == null || a[key].toString().trim().length === 0) {
+      return 1;
+    }
+    if (b[key] == null || b[key].toString().trim().length === 0) {
+      return -1;
+    }
     if (a[key] < b[key]) return -1 * modifier;
     if (a[key] > b[key]) return 1 * modifier;
     return 0;
