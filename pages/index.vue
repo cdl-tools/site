@@ -26,8 +26,6 @@ import CDLLogo from "@/components/icons/CDLLogo.vue";
 import { CDL_DISCORD_INVITE } from "~/constants";
 
 const heroImages = Object.values(
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
   import.meta.glob(
     "@/assets/image/heros/communities/*.{png,jpg,jpeg,PNG,JPEG}",
     {
