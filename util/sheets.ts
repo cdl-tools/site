@@ -47,6 +47,7 @@ export interface LeaderboardRow {
   community: string;
   xlWtRank: number;
   scoreRank: number;
+  league: string;
 }
 
 export type LeaderboardRows = LeaderboardRow[];
@@ -67,6 +68,7 @@ export async function fetchEvent(id: string): Promise<LeaderboardRows> {
     L: "community",
     M: "xlWtRank",
     N: "scoreRank",
+    O: "league",
   });
 
   // FIXME: For some reason typescript doesn't pay attention to ParsedRow typings here
