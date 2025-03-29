@@ -69,6 +69,9 @@
               <th scope="col">
                 <SortLink name="shiny">Shiny</SortLink>
               </th>
+              <th v-if="hasLeagueColumn" scope="col">
+                <SortLink name="league">League</SortLink>
+              </th>
             </tr>
           </thead>
           <template #body="sort">
@@ -83,6 +86,7 @@
                 <td>{{ value.score }}</td>
                 <td>{{ value.xlWeight }}</td>
                 <td>{{ value.shiny }}</td>
+                <td v-if="hasLeagueColumn">{{ value.league }}</td>
               </tr>
             </tbody>
           </template>
@@ -115,6 +119,12 @@ const eventName = computed(() => {
 
 const isFiltered = computed(() => {
   return !!filters.value.username || !!filters.value.communities?.length;
+});
+
+const hasLeagueColumn = computed(() => {
+  return Array.isArray(leaderboard.value)
+    ? !!leaderboard.value[0].league
+    : false;
 });
 
 const filteredLeaderboard = computed(() => {
